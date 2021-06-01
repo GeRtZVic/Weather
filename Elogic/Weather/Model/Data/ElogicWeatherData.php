@@ -1,10 +1,15 @@
 <?php
+declare(strict_types=1);
 
 namespace Elogic\Weather\Model\Data;
 
 use Elogic\Weather\Api\Data\ElogicWeatherInterface;
 use Magento\Framework\DataObject;
 
+/**
+ * Class ElogicWeatherData
+ * @package Elogic\Weather\Model\Data
+ */
 class ElogicWeatherData extends DataObject implements ElogicWeatherInterface
 {
     /**

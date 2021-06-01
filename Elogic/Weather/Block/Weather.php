@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Elogic\Weather\Block;
 
@@ -6,16 +7,10 @@ use Elogic\Weather\Model\ElogicWeatherModel;
 use Elogic\Weather\Model\ResourceModel\ElogicWeatherModel\ElogicWeatherCollection;
 use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Framework\View\Element\Template;
-use Magento\Framework\HTTP\Client\Curl;
 use Magento\Framework\View\Element\Template\Context;
 
 class Weather extends Template
 {
-    /**
-     * @var Curl
-     */
-    protected $curlClient;
-
     /**
      * @var Json
      */
@@ -28,23 +23,24 @@ class Weather extends Template
 
     /**
      * Weather constructor.
+     * @param Json $json
      * @param Context $context
+     * @param ElogicWeatherCollection $collection
      */
     public function __construct(
         Json $json,
         Context $context,
         ElogicWeatherCollection $collection
-    )
-    {
+    ) {
         $this->json = $json;
         $this->collection = $collection;
         parent::__construct($context);
     }
 
     /**
-     * @return mixed
+     * @return array
      */
-    public function sayHello()
+    public function getWeatherData(): array
     {
         /** @var ElogicWeatherModel $model */
         $model = $this->collection->getLastItem();
@@ -54,13 +50,5 @@ class Weather extends Template
             'wind' => $this->json->unserialize($model->getWind()),
             'name' => $model->getName()
         ];
-    }
-
-    /**
-     * @return Curl
-     */
-    public function getCurlClient(): Curl
-    {
-        return $this->curlClient;
     }
 }

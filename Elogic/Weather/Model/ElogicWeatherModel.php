@@ -1,10 +1,14 @@
 <?php
+declare(strict_types=1);
 
 namespace Elogic\Weather\Model;
 
 use Elogic\Weather\Model\ResourceModel\ElogicWeatherResource;
 use Magento\Framework\Model\AbstractModel;
 
+/**
+ * @method getName()
+ */
 class ElogicWeatherModel extends AbstractModel
 {
     /**

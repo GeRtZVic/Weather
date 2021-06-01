@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <referenceContainer name="content">
-        <block class="Elogic\Weather\Block\Weather" name="elogic_elogic_index" template="Elogic_Weather::weather.phtml" />
+        <block class="Elogic\Weather\Block\Weather" name="weather_weather_index" template="Elogic_Weather::weather.phtml" />
     </referenceContainer>
 </page>

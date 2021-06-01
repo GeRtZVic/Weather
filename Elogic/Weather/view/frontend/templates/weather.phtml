@@ -1,10 +1,10 @@
 <?php
-
+declare(strict_types=1);
 /**
  * @var \Elogic\Weather\Block\Weather $block
  */
 
-$info = $block->sayHello();
+$info = $block->getWeatherData();
 ?>
 <table>
     <tbody>
@@ -13,7 +13,7 @@ $info = $block->sayHello();
     </tr>
     <tr>
         <td><?= $info['main']['temp'];?>&#176; C</td>
-        <td><?= $info['main']['feels_like'];?>&#176;C. <?= $info['info']['description'];?></td>
+        <td>Feels like <?= $info['main']['feels_like'];?>&#176;C. <?= $info['info']['description'];?></td>
     </tr>
     <tr>
         <td>

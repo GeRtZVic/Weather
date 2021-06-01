@@ -1,6 +1,7 @@
 <?php
+declare(strict_types=1);
 
-namespace Elogic\Weather\Controller\Elogic;
+namespace Elogic\Weather\Controller\Weather;
 
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\App\ResponseInterface;
@@ -31,7 +32,6 @@ class Index implements HttpGetActionInterface
      * Execute action based on request and return result
      *
      * @return ResultInterface|ResponseInterface
-     * @throws NotFoundException
      */
     public function execute()
     {
