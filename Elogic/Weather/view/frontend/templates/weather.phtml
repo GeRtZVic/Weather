@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @var \Elogic\Weather\Block\Weather $block
+ */
+
+$info = $block->sayHello();
+?>
+<table>
+    <tbody>
+    <tr>
+        <td colspan="2"><?= $info['name'];?></td>
+    </tr>
+    <tr>
+        <td><?= $info['main']['temp'];?>&#176; C</td>
+        <td><?= $info['main']['feels_like'];?>&#176;C. <?= $info['info']['description'];?></td>
+    </tr>
+    <tr>
+        <td>
+            Wind <?= $info['wind']['speed'];?>m/s N
+        </td>
+        <td>Atmospheric pressure <?= $info['main']['pressure'];?>Pa</td>
+    </tr>
+    <tr>
+        <td colspan="2">Humidity:<?= $info['main']['humidity'];?>%</td>
+    </tr>
+    </tbody>
+</table>

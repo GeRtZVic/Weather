@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Elogic_Weather::management" sortOrder="10" title="Elogic Weather Management" module="Elogic_Weather"
+             parent="Dotdigitalgroup_Chat::config" resource="Elogic_Weather::management" translate="title"
+             action="elogic_weather/elogicweather/index"/>
+    </menu>
+</config>

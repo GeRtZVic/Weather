@@ -1,0 +1,19 @@
+{
+    "elogic_weather": {
+        "column": {
+            "entity_id": true,
+            "info": true,
+            "main": true,
+            "wind": true,
+            "name": true,
+            "in_town": true,
+            "created_at": true
+        },
+        "index": {
+            "ELOGIC_WEATHER_ENTITY_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

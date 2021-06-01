@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="elogic_weather" resource="default" engine="innodb" comment="ElogicWeather">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Entity Id Column"/>
+        <column xsi:type="varchar" name="info" nullable="false" length="255" comment="Info Column"/>
+        <column xsi:type="varchar" name="main" nullable="false" length="255" comment="Main Column"/>
+        <column xsi:type="varchar" name="wind" nullable="false" length="255" comment="Wind Column"/>
+        <column xsi:type="varchar" name="name" nullable="false" length="255" comment="Name Column"/>
+        <column xsi:type="int" name="in_town" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="In Town Column"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Creation Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="ELOGIC_WEATHER_ENTITY_ID" indexType="btree">
+            <column name="entity_id"/>
+        </index>
+    </table>
+</schema>
