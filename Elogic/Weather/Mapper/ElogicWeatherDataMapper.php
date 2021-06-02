@@ -24,8 +24,7 @@ class ElogicWeatherDataMapper
      */
     public function __construct(
         ElogicWeatherInterfaceFactory $entityDtoFactory
-    )
-    {
+    ) {
         $this->entityDtoFactory = $entityDtoFactory;
     }
 

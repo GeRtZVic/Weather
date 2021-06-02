@@ -2,7 +2,14 @@
 
 namespace Elogic\Weather\Api\Data;
 
-interface ElogicWeatherInterface
+use Magento\Framework\Api\ExtensibleDataInterface;
+use Elogic\Weather\Api\Data\ElogicWeatherExtensionInterface;
+
+/**
+ * Interface ElogicWeatherInterface
+ * @package Elogic\Weather\Api\Data
+ */
+interface ElogicWeatherInterface extends ExtensibleDataInterface
 {
     /**
      * String constants for property names
@@ -18,25 +25,25 @@ interface ElogicWeatherInterface
     /**
      * Getter for EntityId.
      *
-     * @return int|null
+     * @return int
      */
-    public function getEntityId(): ?int;
+    public function getEntityId(): int;
 
     /**
      * Setter for EntityId.
      *
-     * @param int|null $entityId
+     * @param int $entityId
      *
      * @return void
      */
-    public function setEntityId(?int $entityId): void;
+    public function setEntityId(int $entityId);
 
     /**
      * Getter for Info.
      *
      * @return string|null
      */
-    public function getInfo(): ?string;
+    public function getInfo(): string;
 
     /**
      * Setter for Info.
@@ -45,7 +52,7 @@ interface ElogicWeatherInterface
      *
      * @return void
      */
-    public function setInfo(?string $info): void;
+    public function setInfo(string $info): void;
 
     /**
      * Getter for Main.
@@ -61,7 +68,7 @@ interface ElogicWeatherInterface
      *
      * @return void
      */
-    public function setMain(?string $main): void;
+    public function setMain(string $main): void;
 
     /**
      * Getter for Wind.
@@ -77,7 +84,7 @@ interface ElogicWeatherInterface
      *
      * @return void
      */
-    public function setWind(?string $wind): void;
+    public function setWind(string $wind): void;
 
     /**
      * Getter for Name.
@@ -93,27 +100,38 @@ interface ElogicWeatherInterface
      *
      * @return void
      */
-    public function setName(?string $name): void;
+    public function setName(string $name): void;
 
     /**
      * Getter for InTown.
      *
-     * @return int|null
+     * @return int
      */
-    public function getInTown(): ?int;
+    public function getInTown(): int;
 
     /**
      * Setter for InTown.
      *
-     * @param int|null $inTown
+     * @param int $inTown
      *
      * @return void
      */
-    public function setInTown(?int $inTown): void;
+    public function setInTown(int $inTown): void;
 
     /**
      * Getter for CreatedAt.
      * @return string|null
      */
-    public function getCreatedAt(): ?string;
+    public function getCreatedAt(): string;
+
+    /**
+     * @return ElogicWeatherExtensionInterface
+     */
+    public function getExtensionAttributes();
+
+    /**
+     * @param ElogicWeatherExtensionInterface $extensionAttributes
+     * @return mixed
+     */
+    public function setExtensionAttributes(ElogicWeatherExtensionInterface $extensionAttributes);
 }
