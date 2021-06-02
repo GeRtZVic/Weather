@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace Elogic\Weather\Query\ElogicWeather;
 
 use Elogic\Weather\Mapper\ElogicWeatherDataMapper;
-use Elogic\Weather\Model\ResourceModel\ElogicWeatherModel\ElogicWeatherCollection;
-use Elogic\Weather\Model\ResourceModel\ElogicWeatherModel\ElogicWeatherCollectionFactory;
+use Elogic\Weather\Model\ResourceModel\ElogicWeather\Collection;
+use Elogic\Weather\Model\ResourceModel\ElogicWeather\CollectionFactory;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
@@ -23,7 +23,7 @@ class GetListQuery
     private $collectionProcessor;
 
     /**
-     * @var ElogicWeatherCollectionFactory
+     * @var CollectionFactory
      */
     private $entityCollectionFactory;
 
@@ -44,14 +44,14 @@ class GetListQuery
 
     /**
      * @param CollectionProcessorInterface $collectionProcessor
-     * @param ElogicWeatherCollectionFactory $entityCollectionFactory
+     * @param CollectionFactory $entityCollectionFactory
      * @param ElogicWeatherDataMapper $entityDataMapper
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
      * @param SearchResultsInterfaceFactory $searchResultFactory
      */
     public function __construct(
         CollectionProcessorInterface $collectionProcessor,
-        ElogicWeatherCollectionFactory $entityCollectionFactory,
+        CollectionFactory $entityCollectionFactory,
         ElogicWeatherDataMapper $entityDataMapper,
         SearchCriteriaBuilder $searchCriteriaBuilder,
         SearchResultsInterfaceFactory $searchResultFactory
@@ -72,7 +72,7 @@ class GetListQuery
      */
     public function execute(?SearchCriteriaInterface $searchCriteria = null): SearchResultsInterface
     {
-        /** @var ElogicWeatherCollection $collection */
+        /** @var Collection $collection */
         $collection = $this->entityCollectionFactory->create();
 
         if ($searchCriteria === null) {
