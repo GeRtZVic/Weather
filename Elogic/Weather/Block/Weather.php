@@ -5,8 +5,9 @@ namespace Elogic\Weather\Block;
 
 use Elogic\Weather\Api\Data\ElogicWeatherInterface;
 use Elogic\Weather\Api\ElogicWeatherRepositoryInterface;
-use Elogic\Weather\Model\ElogicWeatherModel;
+use Elogic\Weather\Model\ElogicWeather;
 use Magento\Framework\Api\SearchCriteriaBuilder;
+use Magento\Framework\Api\SortOrder;
 use Magento\Framework\Api\SortOrderBuilder;
 use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Framework\View\Element\Template;
@@ -42,6 +43,8 @@ class Weather extends Template
      * Weather constructor.
      * @param Json $json
      * @param Context $context
+     * @param SearchCriteriaBuilder $searchCriteriaBuilder
+     * @param SortOrderBuilder $sortOrderBuilder
      * @param ElogicWeatherRepositoryInterface $repository
      */
     public function __construct(
@@ -63,8 +66,11 @@ class Weather extends Template
      */
     public function getWeatherData(): ElogicWeatherInterface
     {
-        /** @var ElogicWeatherModel $model */
-        $sortOrder = $this->sortOrderBuilder->setField('created_at')->setDirection('DESC')->create();
+        /** @var ElogicWeather $model */
+        $sortOrder = $this->sortOrderBuilder
+            ->setField(ElogicWeatherInterface::CREATED_AT)
+            ->setDirection(SortOrder::SORT_DESC)
+            ->create();
         $searchCriteria = $this->searchCriteriaBuilder->setSortOrders([$sortOrder])->setPageSize(1)->create();
         $modelList = $this->repository->getList($searchCriteria);
         $models = $modelList->getItems();

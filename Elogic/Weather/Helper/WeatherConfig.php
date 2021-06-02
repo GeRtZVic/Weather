@@ -1,11 +1,10 @@
 <?php
-
+declare(strict_types=1);
 
 namespace Elogic\Weather\Helper;
 
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
-use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Store\Model\ScopeInterface;
 use Magento\Store\Model\StoreManagerInterface;
 
@@ -18,7 +17,7 @@ class WeatherConfig extends AbstractHelper
     /**
      * @var StoreManagerInterface
      */
-    protected  $_storeManager;
+    protected $_storeManager;
 
     /**
      * DataImport constructor.
@@ -28,8 +27,7 @@ class WeatherConfig extends AbstractHelper
     public function __construct(
         Context $context,
         StoreManagerInterface $_storeManager
-    )
-    {
+    ) {
         parent::__construct($context);
         $this->_storeManager = $_storeManager;
     }
@@ -37,20 +35,18 @@ class WeatherConfig extends AbstractHelper
     /**
      * @param $path
      * @return mixed
-     * @throws NoSuchEntityException
      */
     public function getValue($path)
     {
         return $this->scopeConfig->getValue(
             $path,
             ScopeInterface::SCOPE_STORE,
-            $this->_storeManager->getStore()->getId()
+            //            $this->_storeManager->getStore()->getId()
         );
     }
 
     /**
      * @return mixed
-     * @throws NoSuchEntityException
      */
     public function getIsEnabled()
     {
@@ -59,7 +55,6 @@ class WeatherConfig extends AbstractHelper
 
     /**
      * @return mixed
-     * @throws NoSuchEntityException
      */
     public function getApiUrl()
     {
@@ -68,7 +63,6 @@ class WeatherConfig extends AbstractHelper
 
     /**
      * @return mixed
-     * @throws NoSuchEntityException
      */
     public function getApiKey()
     {
@@ -77,7 +71,6 @@ class WeatherConfig extends AbstractHelper
 
     /**
      * @return mixed
-     * @throws NoSuchEntityException
      */
     public function getTownId()
     {
@@ -86,7 +79,6 @@ class WeatherConfig extends AbstractHelper
 
     /**
      * @return mixed
-     * @throws NoSuchEntityException
      */
     public function getUnits()
     {

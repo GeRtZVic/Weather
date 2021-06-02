@@ -35,7 +35,7 @@ interface ElogicWeatherInterface extends ExtensibleDataInterface
      *
      * @return void
      */
-    public function setEntityId(int $entityId);
+    public function setEntityId(int $entityId): void;
 
     /**
      * Getter for Info.
@@ -126,11 +126,11 @@ interface ElogicWeatherInterface extends ExtensibleDataInterface
     /**
      * @return \Elogic\Weather\Api\Data\ElogicWeatherExtensionInterface
      */
-    public function getExtensionAttributes();
+    public function getExtensionAttributes(): \Elogic\Weather\Api\Data\ElogicWeatherExtensionInterface;
 
     /**
      * @param \Elogic\Weather\Api\Data\ElogicWeatherExtensionInterface $extensionAttributes
-     * @return mixed
+     * @return void
      */
-    public function setExtensionAttributes(\Elogic\Weather\Api\Data\ElogicWeatherExtensionInterface $extensionAttributes);
+    public function setExtensionAttributes(\Elogic\Weather\Api\Data\ElogicWeatherExtensionInterface $extensionAttributes): void;
 }

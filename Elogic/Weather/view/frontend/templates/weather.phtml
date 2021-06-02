@@ -6,7 +6,7 @@ declare(strict_types=1);
  */
 
 $model = $block->getWeatherData();
-if ($model != null): ?>
+if ($model->getEntityId()): ?>
 <table>
     <tbody>
     <tr>
@@ -14,17 +14,21 @@ if ($model != null): ?>
     </tr>
     <tr>
         <td><?= $model->getData('additional/main/temp');?>&#176; C</td>
-        <td>Feels like <?= $model->getData('additional/main/feels_like');?>&#176;C.
+        <td><?= __('Feels like %1 &#176;C.', $model->getData('additional/main/feels_like')); ?>
             <?= $model->getData('additional/info/description');?></td>
     </tr>
     <tr>
         <td>
-            Wind <?= $model->getData('additional/wind/speed');?>m/s N
+            <?= __('Wind %1 m/s N', $model->getData('additional/wind/speed')); ?>
         </td>
-        <td>Atmospheric pressure <?= $model->getData('additional/main/pressure');?>Pa</td>
+        <td>
+            <?= __('Atmospheric pressure %1 Pa', $model->getData('additional/main/pressure')); ?>
+        </td>
     </tr>
     <tr>
-        <td colspan="2">Humidity:<?= $model->getData('additional/main/humidity');?>%</td>
+        <td colspan="2">
+            <?= __('Humidity: %1 %', $model->getData('additional/main/humidity')); ?>
+        </td>
     </tr>
     </tbody>
 </table>

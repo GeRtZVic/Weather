@@ -1,15 +1,16 @@
 <?php
-
+declare(strict_types=1);
 
 namespace Elogic\Weather\Model\Config\Source;
+
+use Magento\Framework\Data\OptionSourceInterface;
 
 /**
  * Class ListMode
  * @package Elogic\Weather\Model\Config\Source
  */
-class ListMode implements \Magento\Framework\Data\OptionSourceInterface
+class ListMode implements OptionSourceInterface
 {
-
     /**
      * @inheritDoc
      */

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Elogic\Weather\Api\Data;
 
 use Magento\Framework\Api\SearchResultsInterface;

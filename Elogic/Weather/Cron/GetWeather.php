@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Elogic\Weather\Cron;
 
+use Elogic\Weather\Api\Data\ElogicWeatherInterface;
 use Elogic\Weather\Api\ElogicWeatherRepositoryInterface;
 use Elogic\Weather\Helper\WeatherConfig;
 use Elogic\Weather\Model\ElogicWeatherFactory;
@@ -74,19 +75,22 @@ class GetWeather
         if (!$this->weatherConfig->getIsEnabled()) {
             return $this;
         }
+
         $apiUrl = $this->getRequestUrl();
         try {
-            $this->getCurlClient()->get($apiUrl);
+            $this->curlClient->get($apiUrl);
 
-            $response = $this->json->unserialize($this->getCurlClient()->getBody());
-            if ($response['cod'] == 200) {
+            $response = $this->json->unserialize($this->curlClient->getBody());
+            if ($response['cod'] ?? 0 == 200) {
                 $model = $this->modelFactory->create();
-                $weatherArr = array_shift($response['weather']);
-                $model->setData('info', $weatherArr);
-                $model->setData('main', $response['main']);
-                $model->setData('wind', $response['wind']);
-                $model->setData('name', $response['name']);
-                $model->setData('in_town', $response['id']);
+                $weather = $response['weather'] ?? [];
+                $weatherArr = array_shift($weather);
+                $model->setData(ElogicWeatherInterface::INFO, $weatherArr);
+                $model->setData(ElogicWeatherInterface::MAIN, $response[ElogicWeatherInterface::MAIN] ?? '');
+                $model->setData(ElogicWeatherInterface::WIND, $response[ElogicWeatherInterface::WIND] ?? '');
+                $model->setData(ElogicWeatherInterface::NAME, $response[ElogicWeatherInterface::NAME] ?? '');
+                $model->setName($response[ElogicWeatherInterface::NAME] ?? '');
+                $model->setInTown($response['id'] ?? 0);
                 $this->repository->save($model);
             }
         } catch (Exception $e) {
@@ -94,14 +98,6 @@ class GetWeather
         }
 
         return $this;
-    }
-
-    /**
-     * @return Curl
-     */
-    public function getCurlClient(): Curl
-    {
-        return $this->curlClient;
     }
 
     /**

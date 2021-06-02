@@ -7,6 +7,7 @@ use Elogic\Weather\Api\Data\ElogicWeatherInterface;
 use Elogic\Weather\Api\Data\ElogicWeatherSearchResultInterface;
 use Elogic\Weather\Api\ElogicWeatherRepositoryInterface;
 use Elogic\Weather\Model\ResourceModel\ElogicWeather\CollectionFactory;
+use Magento\Framework\Exception\AlreadyExistsException;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
@@ -51,6 +52,7 @@ class ElogicWeatherRepository implements ElogicWeatherRepositoryInterface
      * @param ElogicWeatherFactory $elogicWeatherFactory
      * @param ElogicWeatherCollectionFactory $elogicWeatherCollectionFactory
      * @param ElogicWeatherResource $elogicWeatherResourse
+     * @param CollectionProcessorInterface $collectionProcessor
      * @param ElogicWeatherSearchResultInterfaceFactory $searchResultFactory
      */
     public function __construct(
@@ -85,6 +87,7 @@ class ElogicWeatherRepository implements ElogicWeatherRepositoryInterface
     /**
      * @param ElogicWeatherInterface $model
      * @return ElogicWeatherInterface
+     * @throws AlreadyExistsException
      */
     public function save(ElogicWeatherInterface $model): ElogicWeatherInterface
     {
@@ -96,7 +99,7 @@ class ElogicWeatherRepository implements ElogicWeatherRepositoryInterface
      * @param ElogicWeatherInterface $model
      * @throws CouldNotDeleteException
      */
-    public function delete(ElogicWeatherInterface $model)
+    public function delete(ElogicWeatherInterface $model): void
     {
         try {
             $this->elogicWeatherResourse->delete($model);

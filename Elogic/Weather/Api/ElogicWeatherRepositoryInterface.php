@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Elogic\Weather\Api;
 
 use Elogic\Weather\Api\Data\ElogicWeatherInterface;
@@ -31,11 +30,11 @@ interface ElogicWeatherRepositoryInterface
      * @param ElogicWeatherInterface $model
      * @return void
      */
-    public function delete(ElogicWeatherInterface $model);
+    public function delete(ElogicWeatherInterface $model): void;
 
     /**
      * @param SearchCriteriaInterface $searchCriteria
      * @return ElogicWeatherSearchResultInterface
      */
-    public function getList(SearchCriteriaInterface $searchCriteria);
+    public function getList(SearchCriteriaInterface $searchCriteria): ElogicWeatherSearchResultInterface;
 }

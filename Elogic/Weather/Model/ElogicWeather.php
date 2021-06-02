@@ -7,7 +7,11 @@ use Elogic\Weather\Api\Data\ElogicWeatherExtensionInterface;
 use Elogic\Weather\Api\Data\ElogicWeatherInterface;
 use Magento\Framework\Api\AttributeValueFactory;
 use Magento\Framework\Api\ExtensionAttributesFactory;
+use Magento\Framework\Data\Collection\AbstractDb;
 use Magento\Framework\Model\AbstractExtensibleModel;
+use Magento\Framework\Model\Context;
+use Magento\Framework\Model\ResourceModel\AbstractResource;
+use Magento\Framework\Registry;
 use Magento\Framework\Serialize\Serializer\Json;
 
 /**
@@ -21,18 +25,37 @@ class ElogicWeather extends AbstractExtensibleModel implements ElogicWeatherInte
      */
     protected $json;
 
+    /**
+     * ElogicWeather constructor.
+     * @param Json $json
+     * @param Context $context
+     * @param Registry $registry
+     * @param ExtensionAttributesFactory $extensionFactory
+     * @param AttributeValueFactory $customAttributeFactory
+     * @param AbstractResource|null $resource
+     * @param AbstractDb|null $resourceCollection
+     * @param array $data
+     */
     public function __construct(
         Json $json,
-        \Magento\Framework\Model\Context $context,
-        \Magento\Framework\Registry $registry,
+        Context $context,
+        Registry $registry,
         ExtensionAttributesFactory $extensionFactory,
         AttributeValueFactory $customAttributeFactory,
-        \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
-        \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
+        AbstractResource $resource = null,
+        AbstractDb $resourceCollection = null,
         array $data = []
     ) {
         $this->json = $json;
-        parent::__construct($context, $registry, $extensionFactory, $customAttributeFactory, $resource, $resourceCollection, $data);
+        parent::__construct(
+            $context,
+            $registry,
+            $extensionFactory,
+            $customAttributeFactory,
+            $resource,
+            $resourceCollection,
+            $data
+        );
     }
 
     /**
@@ -55,7 +78,7 @@ class ElogicWeather extends AbstractExtensibleModel implements ElogicWeatherInte
      * @param int $entityId
      * @return void
      */
-    public function setEntityId($entityId)
+    public function setEntityId($entityId): void
     {
         $this->setData(self::ENTITY_ID, $entityId);
     }
@@ -160,19 +183,19 @@ class ElogicWeather extends AbstractExtensibleModel implements ElogicWeatherInte
     }
 
     /**
-     * @inheritDoc
+     * @return ElogicWeatherExtensionInterface
      */
-    public function getExtensionAttributes()
+    public function getExtensionAttributes(): ElogicWeatherExtensionInterface
     {
         return $this->_getExtensionAttributes();
     }
 
     /**
-     * @inheritDoc
+     * @param ElogicWeatherExtensionInterface $extensionAttributes
      */
     public function setExtensionAttributes(
         ElogicWeatherExtensionInterface $extensionAttributes
-    ) {
+    ): void {
         $this->_setExtensionAttributes($extensionAttributes);
     }
 }

@@ -105,7 +105,7 @@ class ElogicWeatherDataProvider extends DataProvider
             $itemsById[(int)$item['entity_id']] = $item;
         }
 
-        if ($id = $this->request->getParam('entity_id', null)) {
+        if ($id = $this->request->getParam('entity_id')) {
             $this->loadedData['entity'] = $itemsById[(int)$id];
         }
 
