@@ -55,8 +55,7 @@ class GetListQuery
         ElogicWeatherDataMapper $entityDataMapper,
         SearchCriteriaBuilder $searchCriteriaBuilder,
         SearchResultsInterfaceFactory $searchResultFactory
-    )
-    {
+    ) {
         $this->collectionProcessor = $collectionProcessor;
         $this->entityCollectionFactory = $entityCollectionFactory;
         $this->entityDataMapper = $entityDataMapper;

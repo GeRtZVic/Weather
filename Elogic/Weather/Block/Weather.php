@@ -3,12 +3,19 @@ declare(strict_types=1);
 
 namespace Elogic\Weather\Block;
 
+use Elogic\Weather\Api\Data\ElogicWeatherInterface;
+use Elogic\Weather\Api\ElogicWeatherRepositoryInterface;
 use Elogic\Weather\Model\ElogicWeatherModel;
-use Elogic\Weather\Model\ResourceModel\ElogicWeatherModel\ElogicWeatherCollection;
+use Magento\Framework\Api\SearchCriteriaBuilder;
+use Magento\Framework\Api\SortOrderBuilder;
 use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 
+/**
+ * Class Weather
+ * @package Elogic\Weather\Block
+ */
 class Weather extends Template
 {
     /**
@@ -17,38 +24,51 @@ class Weather extends Template
     protected $json;
 
     /**
-     * @var ElogicWeatherCollection
+     * @var ElogicWeatherRepositoryInterface
      */
-    protected $collection;
+    protected $repository;
+
+    /**
+     * @var SearchCriteriaBuilder
+     */
+    protected $searchCriteriaBuilder;
+
+    /**
+     * @var SortOrderBuilder
+     */
+    protected $sortOrderBuilder;
 
     /**
      * Weather constructor.
      * @param Json $json
      * @param Context $context
-     * @param ElogicWeatherCollection $collection
+     * @param ElogicWeatherRepositoryInterface $repository
      */
     public function __construct(
         Json $json,
         Context $context,
-        ElogicWeatherCollection $collection
+        SearchCriteriaBuilder $searchCriteriaBuilder,
+        SortOrderBuilder $sortOrderBuilder,
+        ElogicWeatherRepositoryInterface $repository
     ) {
         $this->json = $json;
-        $this->collection = $collection;
+        $this->repository = $repository;
+        $this->sortOrderBuilder = $sortOrderBuilder;
+        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         parent::__construct($context);
     }
 
     /**
-     * @return array
+     * @return ElogicWeatherInterface
      */
-    public function getWeatherData(): array
+    public function getWeatherData(): ElogicWeatherInterface
     {
         /** @var ElogicWeatherModel $model */
-        $model = $this->collection->getLastItem();
-        return [
-            'info' => $this->json->unserialize($model->getInfo()),
-            'main' => $this->json->unserialize($model->getMain()),
-            'wind' => $this->json->unserialize($model->getWind()),
-            'name' => $model->getName()
-        ];
+        $sortOrder = $this->sortOrderBuilder->setField('created_at')->setDirection('DESC')->create();
+        $searchCriteria = $this->searchCriteriaBuilder->setSortOrders([$sortOrder])->setPageSize(1)->create();
+        $modelList = $this->repository->getList($searchCriteria);
+        $models = $modelList->getItems();
+
+        return array_shift($models);
     }
 }

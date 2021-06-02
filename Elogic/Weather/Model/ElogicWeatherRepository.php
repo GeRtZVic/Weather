@@ -6,6 +6,7 @@ namespace Elogic\Weather\Model;
 use Elogic\Weather\Api\Data\ElogicWeatherInterface;
 use Elogic\Weather\Api\Data\ElogicWeatherSearchResultInterface;
 use Elogic\Weather\Api\ElogicWeatherRepositoryInterface;
+use Elogic\Weather\Model\ResourceModel\ElogicWeather\CollectionFactory;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
@@ -26,7 +27,7 @@ class ElogicWeatherRepository implements ElogicWeatherRepositoryInterface
     private $elogicWeatherFactory;
 
     /**
-     * @var ElogicWeatherCollectionFactory
+     * @var CollectionFactory
      */
     private $elogicWeatherCollectionFactory;
 

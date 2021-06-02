@@ -2,27 +2,30 @@
 declare(strict_types=1);
 /**
  * @var \Elogic\Weather\Block\Weather $block
+ * @var Elogic\Weather\Api\Data\ElogicWeatherInterface $model
  */
 
-$info = $block->getWeatherData();
-?>
+$model = $block->getWeatherData();
+if ($model != null): ?>
 <table>
     <tbody>
     <tr>
-        <td colspan="2"><?= $info['name'];?></td>
+        <td colspan="2"><?= $model->getData('name');?></td>
     </tr>
     <tr>
-        <td><?= $info['main']['temp'];?>&#176; C</td>
-        <td>Feels like <?= $info['main']['feels_like'];?>&#176;C. <?= $info['info']['description'];?></td>
+        <td><?= $model->getData('additional/main/temp');?>&#176; C</td>
+        <td>Feels like <?= $model->getData('additional/main/feels_like');?>&#176;C.
+            <?= $model->getData('additional/info/description');?></td>
     </tr>
     <tr>
         <td>
-            Wind <?= $info['wind']['speed'];?>m/s N
+            Wind <?= $model->getData('additional/wind/speed');?>m/s N
         </td>
-        <td>Atmospheric pressure <?= $info['main']['pressure'];?>Pa</td>
+        <td>Atmospheric pressure <?= $model->getData('additional/main/pressure');?>Pa</td>
     </tr>
     <tr>
-        <td colspan="2">Humidity:<?= $info['main']['humidity'];?>%</td>
+        <td colspan="2">Humidity:<?= $model->getData('additional/main/humidity');?>%</td>
     </tr>
     </tbody>
 </table>
+<?php endif;?>

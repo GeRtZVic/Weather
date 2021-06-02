@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace Elogic\Weather\Cron;
 
+use Elogic\Weather\Api\ElogicWeatherRepositoryInterface;
 use Elogic\Weather\Helper\WeatherConfig;
+use Elogic\Weather\Model\ElogicWeatherFactory;
 use Exception;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\HTTP\Client\Curl;
 use Magento\Framework\Serialize\Serializer\Json;
-use Elogic\Weather\Model\ElogicWeatherModelFactory;
-use Elogic\Weather\Model\ResourceModel\ElogicWeatherResource;
 
 /**
  * Class GetWeather
@@ -29,14 +29,14 @@ class GetWeather
     protected $json;
 
     /**
-     * @var ElogicWeatherModelFactory
+     * @var ElogicWeatherFactory
      */
     private $modelFactory;
 
     /**
-     * @var ElogicWeatherResource
+     * @var ElogicWeatherRepositoryInterface
      */
-    private $resource;
+    private $repository;
 
     /**
      * @var WeatherConfig
@@ -48,20 +48,20 @@ class GetWeather
      * @param Json $json
      * @param Curl $curl
      * @param WeatherConfig $weatherConfig
-     * @param ElogicWeatherResource $resource
-     * @param ElogicWeatherModelFactory $modelFactory
+     * @param ElogicWeatherRepositoryInterface $repository
+     * @param ElogicWeatherFactory $modelFactory
      */
     public function __construct(
         Json $json,
         Curl $curl,
         WeatherConfig $weatherConfig,
-        ElogicWeatherResource $resource,
-        ElogicWeatherModelFactory $modelFactory
+        ElogicWeatherRepositoryInterface $repository,
+        ElogicWeatherFactory $modelFactory
     ) {
         $this->json = $json;
         $this->curlClient = $curl;
         $this->weatherConfig = $weatherConfig;
-        $this->resource = $resource;
+        $this->repository = $repository;
         $this->modelFactory = $modelFactory;
     }
 
@@ -79,15 +79,15 @@ class GetWeather
             $this->getCurlClient()->get($apiUrl);
 
             $response = $this->json->unserialize($this->getCurlClient()->getBody());
-            if ($response['code'] == 200) {
+            if ($response['cod'] == 200) {
                 $model = $this->modelFactory->create();
                 $weatherArr = array_shift($response['weather']);
-                $model->setData('info', $this->json->serialize($weatherArr));
-                $model->setData('main', $this->json->serialize($response['main']));
-                $model->setData('wind', $this->json->serialize($response['wind']));
+                $model->setData('info', $weatherArr);
+                $model->setData('main', $response['main']);
+                $model->setData('wind', $response['wind']);
                 $model->setData('name', $response['name']);
                 $model->setData('in_town', $response['id']);
-                $this->resource->save($model);
+                $this->repository->save($model);
             }
         } catch (Exception $e) {
             return $e->getMessage();

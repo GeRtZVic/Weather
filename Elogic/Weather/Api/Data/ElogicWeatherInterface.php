@@ -3,7 +3,6 @@
 namespace Elogic\Weather\Api\Data;
 
 use Magento\Framework\Api\ExtensibleDataInterface;
-use Elogic\Weather\Api\Data\ElogicWeatherExtensionInterface;
 
 /**
  * Interface ElogicWeatherInterface
@@ -125,13 +124,13 @@ interface ElogicWeatherInterface extends ExtensibleDataInterface
     public function getCreatedAt(): string;
 
     /**
-     * @return ElogicWeatherExtensionInterface
+     * @return \Elogic\Weather\Api\Data\ElogicWeatherExtensionInterface
      */
     public function getExtensionAttributes();
 
     /**
-     * @param ElogicWeatherExtensionInterface $extensionAttributes
+     * @param \Elogic\Weather\Api\Data\ElogicWeatherExtensionInterface $extensionAttributes
      * @return mixed
      */
-    public function setExtensionAttributes(ElogicWeatherExtensionInterface $extensionAttributes);
+    public function setExtensionAttributes(\Elogic\Weather\Api\Data\ElogicWeatherExtensionInterface $extensionAttributes);
 }

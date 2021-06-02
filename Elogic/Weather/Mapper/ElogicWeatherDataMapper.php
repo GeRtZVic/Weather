@@ -5,7 +5,7 @@ namespace Elogic\Weather\Mapper;
 
 use Elogic\Weather\Api\Data\ElogicWeatherInterface;
 use Elogic\Weather\Api\Data\ElogicWeatherInterfaceFactory;
-use Elogic\Weather\Model\ElogicWeatherModel;
+use Elogic\Weather\Model\ElogicWeather;
 use Magento\Framework\DataObject;
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
@@ -38,7 +38,7 @@ class ElogicWeatherDataMapper
     public function map(AbstractCollection $collection): array
     {
         $results = [];
-        /** @var ElogicWeatherModel $item */
+        /** @var ElogicWeather $item */
         foreach ($collection->getItems() as $item) {
             /** @var ElogicWeatherInterface|DataObject $entityDto */
             $entityDto = $this->entityDtoFactory->create();
